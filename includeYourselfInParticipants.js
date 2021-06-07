@@ -44,7 +44,7 @@ const injectNameCorrectPosition = () => {
         const [nameElement] = participantsWithoutElementsToAdd[index].getElementsByTagName('span');
         if (nameElement) {
             const participantName = nameElement.innerText;
-            if (participantName.toLowerCase() > youElement.innerText.toLowerCase()) {
+            if (new Intl.Collator().compare(youElement.innerText.toLowerCase(), participantName.toLowerCase()) < 0) {
                 const yourName = youElement.innerText;
                 console.log(nameElement.innerText + " is bigger than " + yourName);
                 let removedElementsToAdd = [];
