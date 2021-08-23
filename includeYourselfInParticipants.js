@@ -1,13 +1,22 @@
 let amountOfParticipants;
 const injectNameCorrectPosition = () => {
+    let isParticipantsOpen = document.querySelector('[data-tab-id]');    
+    if (!isParticipantsOpen) {
+        // If participants list is closed, do not do anything.
+        amountOfParticipants = 0;
+        return;
+    }
+    isParticipantsOpen = isParticipantsOpen.classList.length == 1;
+    
+    if(!isParticipantsOpen){
+        // If the participants tab has 2 classes it is hidden. 
+        amountOfParticipants = 0;
+        return;
+    }
     const participantsList = document.querySelector('[aria-label="Participants"]');
-    // If participants list is closed, do not do anything.
-    if (!participantsList) return;
-
     const participantsItems = Array.from(participantsList.children ?? []);
-
-    if (amountOfParticipants === participantsItems.length) {
-        // participants didn't change
+    if(amountOfParticipants === participantsItems.length){
+        // Amount of participants didn't change.
         return;
     }
     let youDiv;
@@ -65,7 +74,7 @@ const injectNameCorrectPosition = () => {
 
     return;
 };
-setInterval(injectNameCorrectPosition, 1500);
+setInterval(injectNameCorrectPosition, 1000);
 
 function ParticipantsToAdd(participantsList, participantsToAdd) {
     participantsToAdd.forEach(participant => {
